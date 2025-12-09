@@ -130,7 +130,7 @@ function showPhase(phaseName) {
     $('#turn-phase').textContent = phaseTexts[phaseName] || '';
 }
 
-function createDieElement(value, playerColor = null, small = false) {
+function createDieElement(value, playerColor = null, small = false, isGray = false) {
     const die = document.createElement('div');
     die.className = 'die';
     if (playerColor) {
@@ -138,6 +138,9 @@ function createDieElement(value, playerColor = null, small = false) {
     }
     if (small) {
         die.classList.add('small');
+    }
+    if (isGray) {
+        die.classList.add('gray');
     }
     die.dataset.value = value;
 
@@ -271,7 +274,10 @@ function buildCardSlots(card) {
         const slotClass = isMatched ? 'card-slot matched' : 'card-slot';
 
         html += `<div class="${slotClass}" data-slot-index="${slotIndex}" data-required-value="${reqValue}">`;
-        html += `<span class="slot-requirement">${reqValue}</span>`;
+
+        // Show gray die for unmatched requirements
+        const grayDieHtml = createDieElement(reqValue, null, true, true).outerHTML;
+        html += `<span class="slot-requirement">${grayDieHtml}</span>`;
 
         if (isMatched) {
             const player = gameState.players.find(p => p.id === matchedByPlayer);

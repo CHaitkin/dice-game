@@ -389,19 +389,14 @@ body {
 .card-slot .slot-requirement {
     width: 100%;
     height: 100%;
-    border: 2px dashed var(--text-secondary);
-    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--text-secondary);
     transition: all 0.2s ease;
 }
 
 .card-slot.matched .slot-requirement {
-    opacity: 0.3;
+    display: none;
 }
 
 .card-slot .placed-die {
@@ -412,10 +407,13 @@ body {
     height: 100%;
 }
 
-.card-slot.can-place .slot-requirement {
-    border-color: var(--accent);
-    background: rgba(233, 69, 96, 0.2);
+.card-slot.can-place {
     cursor: pointer;
+}
+
+.card-slot.can-place .slot-requirement .die.gray {
+    opacity: 1;
+    box-shadow: 0 0 0 2px var(--accent), 0 0 10px rgba(233, 69, 96, 0.5);
 }
 
 .card-progress {
@@ -590,6 +588,44 @@ body {
 .die.player-blue { border: 3px solid var(--player-blue); }
 .die.player-green { border: 3px solid var(--player-green); }
 .die.player-yellow { border: 3px solid var(--player-yellow); }
+
+/* Gray dice for unmatched requirements */
+.die.gray {
+    background: #4a4a5a;
+    opacity: 0.6;
+    cursor: default;
+}
+
+.die.gray .dot {
+    background: transparent;
+}
+
+.die.gray[data-value="1"] .dot:nth-child(5) { background: #888; }
+
+.die.gray[data-value="2"] .dot:nth-child(3),
+.die.gray[data-value="2"] .dot:nth-child(7) { background: #888; }
+
+.die.gray[data-value="3"] .dot:nth-child(3),
+.die.gray[data-value="3"] .dot:nth-child(5),
+.die.gray[data-value="3"] .dot:nth-child(7) { background: #888; }
+
+.die.gray[data-value="4"] .dot:nth-child(1),
+.die.gray[data-value="4"] .dot:nth-child(3),
+.die.gray[data-value="4"] .dot:nth-child(7),
+.die.gray[data-value="4"] .dot:nth-child(9) { background: #888; }
+
+.die.gray[data-value="5"] .dot:nth-child(1),
+.die.gray[data-value="5"] .dot:nth-child(3),
+.die.gray[data-value="5"] .dot:nth-child(5),
+.die.gray[data-value="5"] .dot:nth-child(7),
+.die.gray[data-value="5"] .dot:nth-child(9) { background: #888; }
+
+.die.gray[data-value="6"] .dot:nth-child(1),
+.die.gray[data-value="6"] .dot:nth-child(3),
+.die.gray[data-value="6"] .dot:nth-child(4),
+.die.gray[data-value="6"] .dot:nth-child(6),
+.die.gray[data-value="6"] .dot:nth-child(7),
+.die.gray[data-value="6"] .dot:nth-child(9) { background: #888; }
 
 /* Score Phase */
 #score-message {
