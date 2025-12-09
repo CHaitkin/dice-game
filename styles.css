@@ -583,11 +583,114 @@ body {
 .die[data-value="6"] .dot:nth-child(7),
 .die[data-value="6"] .dot:nth-child(9) { background: var(--dice-dot); }
 
-/* Player-colored dice borders */
-.die.player-red { border: 3px solid var(--player-red); }
-.die.player-blue { border: 3px solid var(--player-blue); }
-.die.player-green { border: 3px solid var(--player-green); }
-.die.player-yellow { border: 3px solid var(--player-yellow); }
+/* Player-colored dice */
+.die.player-red {
+    background: var(--player-red);
+    border: 3px solid #c0392b;
+}
+.die.player-red .dot { background: transparent; }
+.die.player-red[data-value="1"] .dot:nth-child(5),
+.die.player-red[data-value="2"] .dot:nth-child(3),
+.die.player-red[data-value="2"] .dot:nth-child(7),
+.die.player-red[data-value="3"] .dot:nth-child(3),
+.die.player-red[data-value="3"] .dot:nth-child(5),
+.die.player-red[data-value="3"] .dot:nth-child(7),
+.die.player-red[data-value="4"] .dot:nth-child(1),
+.die.player-red[data-value="4"] .dot:nth-child(3),
+.die.player-red[data-value="4"] .dot:nth-child(7),
+.die.player-red[data-value="4"] .dot:nth-child(9),
+.die.player-red[data-value="5"] .dot:nth-child(1),
+.die.player-red[data-value="5"] .dot:nth-child(3),
+.die.player-red[data-value="5"] .dot:nth-child(5),
+.die.player-red[data-value="5"] .dot:nth-child(7),
+.die.player-red[data-value="5"] .dot:nth-child(9),
+.die.player-red[data-value="6"] .dot:nth-child(1),
+.die.player-red[data-value="6"] .dot:nth-child(3),
+.die.player-red[data-value="6"] .dot:nth-child(4),
+.die.player-red[data-value="6"] .dot:nth-child(6),
+.die.player-red[data-value="6"] .dot:nth-child(7),
+.die.player-red[data-value="6"] .dot:nth-child(9) { background: #fff; }
+
+.die.player-blue {
+    background: var(--player-blue);
+    border: 3px solid #2980b9;
+}
+.die.player-blue .dot { background: transparent; }
+.die.player-blue[data-value="1"] .dot:nth-child(5),
+.die.player-blue[data-value="2"] .dot:nth-child(3),
+.die.player-blue[data-value="2"] .dot:nth-child(7),
+.die.player-blue[data-value="3"] .dot:nth-child(3),
+.die.player-blue[data-value="3"] .dot:nth-child(5),
+.die.player-blue[data-value="3"] .dot:nth-child(7),
+.die.player-blue[data-value="4"] .dot:nth-child(1),
+.die.player-blue[data-value="4"] .dot:nth-child(3),
+.die.player-blue[data-value="4"] .dot:nth-child(7),
+.die.player-blue[data-value="4"] .dot:nth-child(9),
+.die.player-blue[data-value="5"] .dot:nth-child(1),
+.die.player-blue[data-value="5"] .dot:nth-child(3),
+.die.player-blue[data-value="5"] .dot:nth-child(5),
+.die.player-blue[data-value="5"] .dot:nth-child(7),
+.die.player-blue[data-value="5"] .dot:nth-child(9),
+.die.player-blue[data-value="6"] .dot:nth-child(1),
+.die.player-blue[data-value="6"] .dot:nth-child(3),
+.die.player-blue[data-value="6"] .dot:nth-child(4),
+.die.player-blue[data-value="6"] .dot:nth-child(6),
+.die.player-blue[data-value="6"] .dot:nth-child(7),
+.die.player-blue[data-value="6"] .dot:nth-child(9) { background: #fff; }
+
+.die.player-green {
+    background: var(--player-green);
+    border: 3px solid #27ae60;
+}
+.die.player-green .dot { background: transparent; }
+.die.player-green[data-value="1"] .dot:nth-child(5),
+.die.player-green[data-value="2"] .dot:nth-child(3),
+.die.player-green[data-value="2"] .dot:nth-child(7),
+.die.player-green[data-value="3"] .dot:nth-child(3),
+.die.player-green[data-value="3"] .dot:nth-child(5),
+.die.player-green[data-value="3"] .dot:nth-child(7),
+.die.player-green[data-value="4"] .dot:nth-child(1),
+.die.player-green[data-value="4"] .dot:nth-child(3),
+.die.player-green[data-value="4"] .dot:nth-child(7),
+.die.player-green[data-value="4"] .dot:nth-child(9),
+.die.player-green[data-value="5"] .dot:nth-child(1),
+.die.player-green[data-value="5"] .dot:nth-child(3),
+.die.player-green[data-value="5"] .dot:nth-child(5),
+.die.player-green[data-value="5"] .dot:nth-child(7),
+.die.player-green[data-value="5"] .dot:nth-child(9),
+.die.player-green[data-value="6"] .dot:nth-child(1),
+.die.player-green[data-value="6"] .dot:nth-child(3),
+.die.player-green[data-value="6"] .dot:nth-child(4),
+.die.player-green[data-value="6"] .dot:nth-child(6),
+.die.player-green[data-value="6"] .dot:nth-child(7),
+.die.player-green[data-value="6"] .dot:nth-child(9) { background: #fff; }
+
+.die.player-yellow {
+    background: var(--player-yellow);
+    border: 3px solid #d68910;
+}
+.die.player-yellow .dot { background: transparent; }
+.die.player-yellow[data-value="1"] .dot:nth-child(5),
+.die.player-yellow[data-value="2"] .dot:nth-child(3),
+.die.player-yellow[data-value="2"] .dot:nth-child(7),
+.die.player-yellow[data-value="3"] .dot:nth-child(3),
+.die.player-yellow[data-value="3"] .dot:nth-child(5),
+.die.player-yellow[data-value="3"] .dot:nth-child(7),
+.die.player-yellow[data-value="4"] .dot:nth-child(1),
+.die.player-yellow[data-value="4"] .dot:nth-child(3),
+.die.player-yellow[data-value="4"] .dot:nth-child(7),
+.die.player-yellow[data-value="4"] .dot:nth-child(9),
+.die.player-yellow[data-value="5"] .dot:nth-child(1),
+.die.player-yellow[data-value="5"] .dot:nth-child(3),
+.die.player-yellow[data-value="5"] .dot:nth-child(5),
+.die.player-yellow[data-value="5"] .dot:nth-child(7),
+.die.player-yellow[data-value="5"] .dot:nth-child(9),
+.die.player-yellow[data-value="6"] .dot:nth-child(1),
+.die.player-yellow[data-value="6"] .dot:nth-child(3),
+.die.player-yellow[data-value="6"] .dot:nth-child(4),
+.die.player-yellow[data-value="6"] .dot:nth-child(6),
+.die.player-yellow[data-value="6"] .dot:nth-child(7),
+.die.player-yellow[data-value="6"] .dot:nth-child(9) { background: #fff; }
 
 /* Gray dice for unmatched requirements */
 .die.gray {
