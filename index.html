@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roll For It!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="screen">
+            <h1>Roll For It!</h1>
+            <p class="subtitle">A dice-matching game for 2-4 players</p>
+
+            <div class="setup-form">
+                <h2>Game Setup</h2>
+
+                <div class="player-count">
+                    <label for="num-players">Number of Players:</label>
+                    <select id="num-players">
+                        <option value="2">2 Players</option>
+                        <option value="3">3 Players</option>
+                        <option value="4" selected>4 Players</option>
+                    </select>
+                </div>
+
+                <div id="player-names">
+                    <div class="player-name-input">
+                        <span class="color-dot" style="background: #e74c3c;"></span>
+                        <input type="text" id="player-1-name" placeholder="Player 1" maxlength="12">
+                    </div>
+                    <div class="player-name-input">
+                        <span class="color-dot" style="background: #3498db;"></span>
+                        <input type="text" id="player-2-name" placeholder="Player 2" maxlength="12">
+                    </div>
+                    <div class="player-name-input">
+                        <span class="color-dot" style="background: #2ecc71;"></span>
+                        <input type="text" id="player-3-name" placeholder="Player 3" maxlength="12">
+                    </div>
+                    <div class="player-name-input">
+                        <span class="color-dot" style="background: #f39c12;"></span>
+                        <input type="text" id="player-4-name" placeholder="Player 4" maxlength="12">
+                    </div>
+                </div>
+
+                <div class="win-score">
+                    <label for="win-score">Points to Win:</label>
+                    <select id="win-score">
+                        <option value="25">25 (Quick Game)</option>
+                        <option value="30">30 (Short Game)</option>
+                        <option value="40" selected>40 (Standard)</option>
+                    </select>
+                </div>
+
+                <button id="start-game" class="btn btn-primary">Start Game</button>
+            </div>
+
+            <div class="rules-summary">
+                <h3>How to Play</h3>
+                <ul>
+                    <li><strong>Roll:</strong> Roll your available dice</li>
+                    <li><strong>Match:</strong> Place dice on cards that match</li>
+                    <li><strong>Score:</strong> Complete a card to claim its points</li>
+                    <li><strong>Win:</strong> First to reach the target score wins!</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <!-- Header with scores -->
+            <header id="game-header">
+                <div id="players-bar"></div>
+                <div id="game-info">
+                    <span id="deck-count">Deck: 30</span>
+                    <span id="target-score">Target: 40</span>
+                </div>
+            </header>
+
+            <!-- Main game area -->
+            <main id="game-main">
+                <!-- Score Cards Area -->
+                <section id="cards-area">
+                    <h2>Score Cards</h2>
+                    <div id="active-cards"></div>
+                </section>
+
+                <!-- Current Player Turn Area -->
+                <section id="turn-area">
+                    <div id="turn-header">
+                        <h2 id="current-player-name">Player's Turn</h2>
+                        <div id="turn-phase"></div>
+                    </div>
+
+                    <!-- Phase 0: Take Back -->
+                    <div id="take-back-phase" class="phase hidden">
+                        <p>Would you like to take back all your dice from the cards?</p>
+                        <div class="phase-actions">
+                            <button id="btn-take-back" class="btn btn-secondary">Take Back All Dice</button>
+                            <button id="btn-skip-take-back" class="btn btn-primary">Keep Dice & Roll</button>
+                        </div>
+                    </div>
+
+                    <!-- Phase 1: Roll -->
+                    <div id="roll-phase" class="phase hidden">
+                        <div id="dice-to-roll">
+                            <span id="available-dice-count">6</span> dice available
+                        </div>
+                        <button id="btn-roll" class="btn btn-primary btn-large">Roll!</button>
+                    </div>
+
+                    <!-- Phase 2: Match -->
+                    <div id="match-phase" class="phase hidden">
+                        <div id="rolled-dice-area">
+                            <h3>Your Roll:</h3>
+                            <div id="rolled-dice"></div>
+                        </div>
+                        <p class="instruction">Click a die, then click a card slot to place it (or click the die again to deselect)</p>
+                        <button id="btn-done-matching" class="btn btn-primary">Done Matching</button>
+                    </div>
+
+                    <!-- Scoring animation -->
+                    <div id="score-phase" class="phase hidden">
+                        <div id="score-message"></div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Game Log -->
+            <aside id="game-log">
+                <h3>Game Log</h3>
+                <div id="log-entries"></div>
+            </aside>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen hidden">
+            <div class="victory-content">
+                <h1>Victory!</h1>
+                <div id="winner-announcement"></div>
+                <div id="final-scores"></div>
+                <button id="play-again" class="btn btn-primary btn-large">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

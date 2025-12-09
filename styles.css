@@ -1,0 +1,757 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Player Colors */
+    --player-red: #e74c3c;
+    --player-blue: #3498db;
+    --player-green: #2ecc71;
+    --player-yellow: #f39c12;
+
+    /* Card Difficulty Colors */
+    --card-easy: #3498db;
+    --card-medium: #27ae60;
+    --card-hard: #9b59b6;
+
+    /* UI Colors */
+    --bg-dark: #1a1a2e;
+    --bg-medium: #16213e;
+    --bg-light: #0f3460;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent: #e94560;
+
+    /* Dice */
+    --dice-bg: #fff;
+    --dice-dot: #1a1a2e;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+#app {
+    min-height: 100vh;
+}
+
+/* Screen Management */
+.screen {
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #ff6b6b;
+}
+
+.btn-secondary {
+    background: var(--bg-light);
+    color: white;
+    border: 2px solid var(--text-secondary);
+}
+
+.btn-secondary:hover {
+    background: #1a4a7a;
+}
+
+.btn-large {
+    padding: 16px 48px;
+    font-size: 20px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==================== SETUP SCREEN ==================== */
+#setup-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#setup-screen h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+.subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+.setup-form {
+    background: var(--bg-medium);
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.setup-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.player-count,
+.win-score {
+    margin-bottom: 20px;
+}
+
+.setup-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.setup-form select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--bg-light);
+    color: white;
+    font-size: 16px;
+}
+
+#player-names {
+    margin: 20px 0;
+}
+
+.player-name-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.color-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.player-name-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: var(--bg-light);
+    color: white;
+    font-size: 14px;
+}
+
+.player-name-input input::placeholder {
+    color: var(--text-secondary);
+}
+
+#start-game {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.rules-summary {
+    background: var(--bg-medium);
+    padding: 20px;
+    border-radius: 16px;
+    max-width: 400px;
+    text-align: left;
+}
+
+.rules-summary h3 {
+    margin-bottom: 15px;
+    color: var(--accent);
+}
+
+.rules-summary ul {
+    list-style: none;
+}
+
+.rules-summary li {
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 3px solid var(--accent);
+}
+
+/* ==================== GAME SCREEN ==================== */
+#game-screen {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Header / Players Bar */
+#game-header {
+    background: var(--bg-medium);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--bg-light);
+}
+
+#players-bar {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--bg-dark);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.player-info.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.4);
+}
+
+.player-info .color-indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.player-info .player-name {
+    font-weight: 600;
+    min-width: 80px;
+}
+
+.player-info .player-score {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.player-info .dice-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+#game-info {
+    display: flex;
+    gap: 20px;
+    color: var(--text-secondary);
+}
+
+/* Main Game Area */
+#game-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Cards Area */
+#cards-area {
+    margin-bottom: 30px;
+}
+
+#cards-area h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+#active-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Score Card */
+.score-card {
+    background: linear-gradient(145deg, #2a2a4a, #1a1a3a);
+    border-radius: 12px;
+    padding: 15px;
+    width: 200px;
+    border: 3px solid var(--card-easy);
+    transition: all 0.3s ease;
+}
+
+.score-card.difficulty-easy {
+    border-color: var(--card-easy);
+}
+
+.score-card.difficulty-medium {
+    border-color: var(--card-medium);
+}
+
+.score-card.difficulty-hard {
+    border-color: var(--card-hard);
+}
+
+.score-card.completable {
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+    animation: pulse-glow 1.5s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(46, 204, 113, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(46, 204, 113, 0.8); }
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-points {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.difficulty-easy .card-points { color: var(--card-easy); }
+.difficulty-medium .card-points { color: var(--card-medium); }
+.difficulty-hard .card-points { color: var(--card-hard); }
+
+.card-difficulty {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+
+.card-required {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.card-slot {
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
+
+.card-slot .slot-requirement {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed var(--text-secondary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.card-slot.matched .slot-requirement {
+    opacity: 0.3;
+}
+
+.card-slot .placed-die {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-slot.can-place .slot-requirement {
+    border-color: var(--accent);
+    background: rgba(233, 69, 96, 0.2);
+    cursor: pointer;
+}
+
+.card-progress {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 20px;
+}
+
+.progress-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+/* Turn Area */
+#turn-area {
+    background: var(--bg-medium);
+    border-radius: 16px;
+    padding: 25px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#turn-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#current-player-name {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#turn-phase {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Phases */
+.phase {
+    text-align: center;
+}
+
+.phase.hidden {
+    display: none;
+}
+
+.phase-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Roll Phase */
+#dice-to-roll {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#available-dice-count {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+/* Match Phase */
+#rolled-dice-area {
+    margin-bottom: 20px;
+}
+
+#rolled-dice-area h3 {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+#rolled-dice {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 60px;
+}
+
+.instruction {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Dice Styling */
+.die {
+    width: 50px;
+    height: 50px;
+    background: var(--dice-bg);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 6px;
+    gap: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.die.small {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    gap: 1px;
+}
+
+.die:hover:not(.placed) {
+    transform: scale(1.1);
+}
+
+.die.selected {
+    box-shadow: 0 0 0 4px var(--accent), 0 4px 12px rgba(233, 69, 96, 0.5);
+    transform: scale(1.1);
+}
+
+.die.placed {
+    cursor: default;
+    opacity: 0.8;
+}
+
+.die .dot {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.die .dot.filled {
+    background: var(--dice-dot);
+}
+
+/* Dice dot positions for each value */
+.die[data-value="1"] .dot:nth-child(5) { background: var(--dice-dot); }
+
+.die[data-value="2"] .dot:nth-child(3),
+.die[data-value="2"] .dot:nth-child(7) { background: var(--dice-dot); }
+
+.die[data-value="3"] .dot:nth-child(3),
+.die[data-value="3"] .dot:nth-child(5),
+.die[data-value="3"] .dot:nth-child(7) { background: var(--dice-dot); }
+
+.die[data-value="4"] .dot:nth-child(1),
+.die[data-value="4"] .dot:nth-child(3),
+.die[data-value="4"] .dot:nth-child(7),
+.die[data-value="4"] .dot:nth-child(9) { background: var(--dice-dot); }
+
+.die[data-value="5"] .dot:nth-child(1),
+.die[data-value="5"] .dot:nth-child(3),
+.die[data-value="5"] .dot:nth-child(5),
+.die[data-value="5"] .dot:nth-child(7),
+.die[data-value="5"] .dot:nth-child(9) { background: var(--dice-dot); }
+
+.die[data-value="6"] .dot:nth-child(1),
+.die[data-value="6"] .dot:nth-child(3),
+.die[data-value="6"] .dot:nth-child(4),
+.die[data-value="6"] .dot:nth-child(6),
+.die[data-value="6"] .dot:nth-child(7),
+.die[data-value="6"] .dot:nth-child(9) { background: var(--dice-dot); }
+
+/* Player-colored dice borders */
+.die.player-red { border: 3px solid var(--player-red); }
+.die.player-blue { border: 3px solid var(--player-blue); }
+.die.player-green { border: 3px solid var(--player-green); }
+.die.player-yellow { border: 3px solid var(--player-yellow); }
+
+/* Score Phase */
+#score-message {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--accent);
+    animation: score-pop 0.5s ease;
+}
+
+@keyframes score-pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Game Log */
+#game-log {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 280px;
+    max-height: 200px;
+    background: var(--bg-medium);
+    border-radius: 12px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+#game-log h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+#log-entries {
+    font-size: 12px;
+}
+
+.log-entry {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--bg-light);
+    color: var(--text-secondary);
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-entry .player-name {
+    font-weight: bold;
+}
+
+.log-entry.player-red .player-name { color: var(--player-red); }
+.log-entry.player-blue .player-name { color: var(--player-blue); }
+.log-entry.player-green .player-name { color: var(--player-green); }
+.log-entry.player-yellow .player-name { color: var(--player-yellow); }
+
+/* ==================== VICTORY SCREEN ==================== */
+#victory-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, var(--bg-medium) 0%, var(--bg-dark) 100%);
+}
+
+.victory-content {
+    text-align: center;
+}
+
+.victory-content h1 {
+    font-size: 72px;
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(233, 69, 96, 0.7);
+    margin-bottom: 20px;
+    animation: victory-pulse 2s infinite;
+}
+
+@keyframes victory-pulse {
+    0%, 100% { text-shadow: 0 0 30px rgba(233, 69, 96, 0.7); }
+    50% { text-shadow: 0 0 60px rgba(233, 69, 96, 1); }
+}
+
+#winner-announcement {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+#winner-announcement .winner-name {
+    font-weight: bold;
+}
+
+#final-scores {
+    background: var(--bg-medium);
+    padding: 20px 40px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    display: inline-block;
+}
+
+#final-scores h3 {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.final-score-entry {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 8px 0;
+    font-size: 18px;
+}
+
+.final-score-entry.winner {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Dice Roll Animation */
+@keyframes roll {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(90deg) scale(0.8); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    75% { transform: rotate(270deg) scale(0.9); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.die.rolling {
+    animation: roll 0.5s ease-in-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #players-bar {
+        gap: 10px;
+    }
+
+    .player-info {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    #active-cards {
+        gap: 10px;
+    }
+
+    .score-card {
+        width: 160px;
+        padding: 10px;
+    }
+
+    #game-log {
+        position: static;
+        width: 100%;
+        max-height: 150px;
+        margin-top: 20px;
+    }
+
+    #turn-area {
+        padding: 15px;
+    }
+
+    .phase-actions {
+        flex-direction: column;
+    }
+}
